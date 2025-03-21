@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/ReboctO/user-management-api#readme",
   "dependencies": {
+    "@types/sequelize": "^4.28.20",
     "body-parser": "^1.20.3",
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
