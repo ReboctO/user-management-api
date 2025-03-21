@@ -1,5 +1,5 @@
 import { Request, Response } from "express";
-import User from "../models/user.model";
+import User from "../models/users.model";
 
 // Get all users
 export const getUsers = async (req: Request, res: Response) => {
@@ -10,7 +10,7 @@ export const getUsers = async (req: Request, res: Response) => {
 // Get single user by ID
 export const getUserById = async (req: Request, res: Response) => {
   const user = await User.findByPk(req.params.id);
-  if (!user) return res.status(404).json({ message: "User not found" });
+  if (!user) return res.status(404).json({ messSage: "User not found" });
   res.json(user);
 };
 
