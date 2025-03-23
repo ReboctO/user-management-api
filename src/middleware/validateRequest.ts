@@ -1,41 +1,25 @@
 import { Request, Response, NextFunction } from "express";
+import Joi from "joi";
 
-// Validate user request body
-export const validateUserRequest = (
-  req: Request,
-  res: Response,
-  next: NextFunction
-) => {
-  const { name, email, age } = req.body;
+// Define validation schema for user
+const userSchema = Joi.object({
+  name: Joi.string().min(3).max(50).required(),
+  email: Joi.string().email().required(),
+  age: Joi.number().integer().min(18).max(100).required(),
+});
 
-  // Check if all required fields are provided
-  if (!name || !email || age === undefined) {
+// Middleware to validate incoming user data
+const validateUser = (req: Request, res: Response, next: NextFunction) => {
+  const { error } = userSchema.validate(req.body, { abortEarly: false });
+
+  if (error) {
     res.status(400).json({
-      message: "All fields (name, email, age) are required.",
+      message: "Validation error",
+      errors: error.details.map((err) => err.message),
     });
   }
 
-  // Validate name (should be a non-empty string)
-  if (typeof name !== "string" || name.trim().length === 0) {
-    res.status(400).json({
-      message: "Name must be a non-empty string.",
-    });
-  }
-
-  // Validate email (basic email pattern)
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (typeof email !== "string" || !emailRegex.test(email)) {
-    res.status(400).json({
-      message: "Invalid email format.",
-    });
-  }
-
-  // Validate age (should be a number greater than 0)
-  if (typeof age !== "number" || age <= 0) {
-    res.status(400).json({
-      message: "Age must be a valid number greater than 0.",
-    });
-  }
-
-  next(); // Proceed if validation is successful
+  next();
 };
+
+export default validateUser;

@@ -4,9 +4,8 @@
   "description": "\"# UserManagement\"",
   "main": "index.js",
   "scripts": {
-    "dev": "ts-node-dev --respawn --transpile-only src/server.ts",
-    "build": "tsc",
-    "start": "node dist/server.js"
+    "start": "node dist/server.js",
+    "dev": "nodemon src/server.ts"
   },
   "repository": {
     "type": "git",
@@ -27,6 +26,7 @@
     "dotenv": "^16.4.7",
     "express": "^4.21.2",
     "express-validator": "^7.2.1",
+    "joi": "^17.13.3",
     "mysql2": "^3.14.0",
     "sequelize": "^6.37.6"
   },
