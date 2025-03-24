@@ -7,6 +7,7 @@ export const getUsers = async (req: Request, res: Response): Promise<void> => {
   res.json(users); // ✅ No return here
 };
 
+
 // Get user by ID
 export const getUserById = async (
   req: Request,
