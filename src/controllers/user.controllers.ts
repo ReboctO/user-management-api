@@ -2,6 +2,8 @@ import { Request, Response } from "express";
 import User from "../models/users.model"; // Correct path to your model
 
 
+
+
 // Get user by ID
 export const getUserById = async (
   req: Request,
