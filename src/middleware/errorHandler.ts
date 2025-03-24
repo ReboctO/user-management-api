@@ -1,6 +1,5 @@
 import { Request, Response, NextFunction } from "express";
 
-// Global error handler
 const errorHandler = (
   err: any,
   req: Request,
@@ -15,12 +14,14 @@ const errorHandler = (
       message: "Validation error",
       errors: err.errors.map((error: any) => error.message),
     });
+    return; // ✅ Return added here
   }
 
   res.status(500).json({
     message: "Internal Server Error",
     error: err.message || "Something went wrong!",
   });
+  return; // ✅ Return added here
 };
 
 export default errorHandler;

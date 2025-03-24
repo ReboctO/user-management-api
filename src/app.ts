@@ -22,7 +22,7 @@ app.use(cors());
 app.use("/api/users", userRoutes);
 
 // Sync models with database
-sequelize.sync().then(() => {
+sequelize.sync({ alter: true }).then(() => {
   console.log("✅ Database synchronized successfully.");
 });
 
