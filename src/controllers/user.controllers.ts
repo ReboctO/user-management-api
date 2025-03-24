@@ -20,6 +20,7 @@ export const getUserById = async (
   res.json(user);
 };
 
+
 // Update user by ID
 export const updateUser = async (
   req: Request,
