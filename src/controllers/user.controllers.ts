@@ -19,7 +19,6 @@ export const getUserById = async (
   }
   res.json(user);
 };
-};
 
 export const createUser = async (
     req: Request,
