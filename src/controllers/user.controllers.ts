@@ -20,20 +20,6 @@ export const getUserById = async (
   res.json(user);
 };
 
-// Create a new user
-export const createUser = async (
-  req: Request,
-  res: Response
-): Promise<void> => {
-  const { name, email, age } = req.body;
-  try {
-    const user = await User.create({ name, email, age });
-    res.status(201).json(user);
-  } catch (error) {
-    res.status(400).json({ message: "Error creating user", error });
-  }
-};
-
 // Update user by ID
 export const updateUser = async (
   req: Request,
