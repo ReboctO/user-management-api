@@ -1,46 +1,32 @@
 import express from "express";
 import bodyParser from "body-parser";
-import dotenv from "dotenv";
 import cors from "cors";
+import dotenv from "dotenv";
 import userRoutes from "./routes/user.routes";
 import { connectDB, sequelize } from "./config/db";
-import { errorHandler } from "./middleware/errorHandler";
-import { validateUserRequest } from "./middleware/validateRequest";
+import errorHandler from "./middleware/errorHandler";
 
 dotenv.config();
 
 const app = express();
 
-// ✅ Connect to MySQL
+// Connect to MySQL
 connectDB();
 
-// ✅ Middleware
-app.use(cors()); // Enable CORS
-app.use(bodyParser.json());
+// Middleware
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(cors());
 
-// ✅ Apply validation middleware to POST and PUT routes
-app.use("/api/users", (req, res, next) => {
-  if (req.method === "POST" || req.method === "PUT") {
-    validateUserRequest(req, res, next);
-  } else {
-    next();
-  }
-});
-
-// ✅ User routes
+// User routes
 app.use("/api/users", userRoutes);
 
-// ✅ Error handling middleware
-app.use(errorHandler);
+// Sync models with database
+sequelize.sync({ alter: true }).then(() => {
+  console.log("✅ Database synchronized successfully.");
+});
 
-// ✅ Sync models with database
-sequelize
-  .sync()
-  .then(() => {
-    console.log("✅ Database synchronized successfully.");
-  })
-  .catch((err) => {
-    console.error("❌ Error syncing database:", err);
-  });
+// Error handling middleware
+app.use(errorHandler);
 
 export default app;
