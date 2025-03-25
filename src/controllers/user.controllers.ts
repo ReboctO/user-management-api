@@ -1,7 +1,12 @@
 import { Request, Response } from "express";
 import User from "../models/users.model"; // Correct path to your model
 
-
+// Get all users
+export const getUsers = async (req: Request, res: Response): Promise<void> => {
+    const users = await User.findAll();
+    res.json(users); // ✅ No return here
+  };
+  
 // Get user by ID
 export const getUserById = async (
   req: Request,
