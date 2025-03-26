@@ -13,10 +13,17 @@ User.init(
     email: {
       type: DataTypes.STRING,
       allowNull: false,
-      unique: true,
+      unique: true, // ✅ Add unique constraint
+      validate: {
+        isEmail: true,
+      },
     },
     age: {
       type: DataTypes.INTEGER,
+      allowNull: false,
+    },
+    password: {
+      type: DataTypes.STRING,
       allowNull: false,
     },
   },
